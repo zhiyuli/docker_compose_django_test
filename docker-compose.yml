@@ -1,13 +1,17 @@
 version: '2'
 services:
-  db:
+  mydb:
+    container_name: mydb_container
     image: postgres
-  web:
+    ports:
+      - "5435:5432"
+  myweb:
     build: .
+    container_name: myweb_container
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - "8001:8000"
     depends_on:
-      - db
+      - mydb
